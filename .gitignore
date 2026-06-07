@@ -1,0 +1,9 @@
+# --- Java / Maven ---
+# Bỏ qua toàn bộ thư mục target (chứa file .class, file .jar sau khi build)
+**/target/
+
+# --- IDEs / Editors ---
+# Bỏ qua cài đặt riêng của VS Code (nếu bạn muốn giữ lại settings.json cho team thì xóa dòng này)
+.vscode/
+
+tic-tac-toe/
