@@ -2,6 +2,10 @@ package vgu.pe2026.ttt;
 
 import java.util.Scanner;
 
+import vgu.pe2026.ttt.Board.Board;
+import vgu.pe2026.ttt.Player.ComputerPlayer;
+import vgu.pe2026.ttt.Player.HumanPlayer;
+
 public class Game {
 
     private final Board board;

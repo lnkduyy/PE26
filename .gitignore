@@ -5,5 +5,3 @@
 # --- IDEs / Editors ---
 # Bỏ qua cài đặt riêng của VS Code (nếu bạn muốn giữ lại settings.json cho team thì xóa dòng này)
 .vscode/
-
-tic-tac-toe/

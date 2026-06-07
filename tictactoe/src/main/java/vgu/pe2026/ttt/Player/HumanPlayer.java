@@ -1,6 +1,8 @@
-package vgu.pe2026.ttt;
+package vgu.pe2026.ttt.Player;
 
 import java.util.Scanner;
+
+import vgu.pe2026.ttt.Board.Board;
 
 public class HumanPlayer extends Player {
 

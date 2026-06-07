@@ -1,4 +1,4 @@
-package vgu.pe2026.ttt;
+package vgu.pe2026.ttt.Board;
 
 public class Board {
 
