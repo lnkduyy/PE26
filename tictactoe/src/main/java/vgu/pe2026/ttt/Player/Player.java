@@ -1,5 +1,6 @@
 package vgu.pe2026.ttt.Player;
 
+import java.io.IOException;
 import vgu.pe2026.ttt.Board.Board;
 
 public abstract class Player {
@@ -14,5 +15,5 @@ public abstract class Player {
         return number;
     }
     
-    public abstract int chooseMove(Board board);
+    public abstract int chooseMove(Board board) throws IOException;
 }

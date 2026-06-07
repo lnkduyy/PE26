@@ -50,10 +50,14 @@ public class Board {
         return false;
     }
 
-    public void display() {
+    @Override
+    public String toString() {
+        return "| " + cells[0] + " | " + cells[1] + " | " + cells[2] + " |\n"
+             + "| " + cells[3] + " | " + cells[4] + " | " + cells[5] + " |\n"
+             + "| " + cells[6] + " | " + cells[7] + " | " + cells[8] + " |";
+    }
 
-        System.out.println("| " + cells[0] + " | " + cells[1] + " | " + cells[2] + " |");
-        System.out.println("| " + cells[3] + " | " + cells[4] + " | " + cells[5] + " |");
-        System.out.println("| " + cells[6] + " | " + cells[7] + " | " + cells[8] + " |");
+    public void display() {
+        System.out.println(this);
     }
 }

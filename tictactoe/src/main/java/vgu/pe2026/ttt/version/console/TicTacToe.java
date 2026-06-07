@@ -1,4 +1,9 @@
-package vgu.pe2026.ttt;
+package vgu.pe2026.ttt.version.console;
+
+import java.io.IOException;
+
+import vgu.pe2026.ttt.Game;
+import vgu.pe2026.ttt.IO.ConsoleIO;
 
 public class TicTacToe {
 
@@ -11,7 +16,7 @@ public class TicTacToe {
 
         int firstPlayer;
 
-        try { firstPlayer = Integer.parseInt(args[0]); } 
+        try { firstPlayer = Integer.parseInt(args[0]); }
         catch (NumberFormatException e) {
             System.out.println("Please, input a valid option [1-2]");
             return;
@@ -22,6 +27,10 @@ public class TicTacToe {
             return;
         }
 
-        new Game(firstPlayer);
+        try {
+            new Game(new ConsoleIO()).play(firstPlayer);
+        } catch (IOException e) {
+            System.out.println("End of the game");
+        }
     }
 }

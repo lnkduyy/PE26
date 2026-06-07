@@ -1,49 +1,49 @@
 package vgu.pe2026.ttt.Player;
 
-import java.util.Scanner;
+import java.io.IOException;
 
 import vgu.pe2026.ttt.Board.Board;
+import vgu.pe2026.ttt.IO.GameIO;
 
 public class HumanPlayer extends Player {
 
-    private final Scanner scanner;
+    private final GameIO io;
 
-    public HumanPlayer(int number, Scanner scanner) {
+    public HumanPlayer(int number, GameIO io) {
         super(number);
-        this.scanner = scanner;
+        this.io = io;
     }
 
     @Override
-    public int chooseMove(Board board) {
+    public int chooseMove(Board board) throws IOException {
 
         boolean validMove = false;
         int chosenCell = -1;
 
         while (!validMove) {
 
-            String input = scanner.nextLine();
+            String input = io.readLine();
 
-            if ("q".equals(input)) {
-                System.out.println("End of the game");
-                System.exit(0);
+            if (input == null || "q".equals(input)) {
+                throw new IOException("quit");
             }
 
             try {
                 chosenCell = Integer.parseInt(input);
 
                 if (chosenCell < 1 || chosenCell > 9) {
-                    System.out.println("Please, input a valid number [1-9]");
-                    System.out.println("Player#1's turn");
+                    io.println("Please, input a valid number [1-9]");
+                    io.println("Player#1's turn");
+                } else if (!board.isFree(chosenCell)) {
+                    io.println("The cell is occupied!");
+                    io.println("Player#1's turn");
+                } else {
+                    validMove = true;
                 }
-                else if (!board.isFree(chosenCell)) {
-                    System.out.println("The cell is occupied!");
-                    System.out.println("Player#1's turn");
-                }
-                else validMove = true;
 
             } catch (NumberFormatException e) {
-                System.out.println("Please, input a valid number [1-9]");
-                System.out.println("Player#1's turn");
+                io.println("Please, input a valid number [1-9]");
+                io.println("Player#1's turn");
             }
         }
 

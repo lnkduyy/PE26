@@ -34,17 +34,51 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
+                <executions>
 
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>
-                                vgu.pe2026.ttt.TicTacToe
-                            </mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
+                    <!-- Primary artifact: local JAR (no classifier → satisfies maven-install) -->
+                    <execution>
+                        <id>default-jar</id>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.console.TicTacToe</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
 
+                    <!-- Attached artifact: Client JAR -->
+                    <execution>
+                        <id>client-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>client</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.singleuser.TicTacToeClient</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                    <!-- Attached artifact: Server JAR -->
+                    <execution>
+                        <id>server-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>server</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.singleuser.TicTacToeServer</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                </executions>
             </plugin>
 
         </plugins>
