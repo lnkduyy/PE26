@@ -33,17 +33,17 @@ public class HumanPlayer extends Player {
 
                 if (chosenCell < 1 || chosenCell > 9) {
                     io.println("Please, input a valid number [1-9]");
-                    io.println("Player#1's turn");
+                    io.println("Player#" + number + "'s turn");
                 } else if (!board.isFree(chosenCell)) {
                     io.println("The cell is occupied!");
-                    io.println("Player#1's turn");
+                    io.println("Player#" + number + "'s turn");
                 } else {
                     validMove = true;
                 }
 
             } catch (NumberFormatException e) {
                 io.println("Please, input a valid number [1-9]");
-                io.println("Player#1's turn");
+                io.println("Player#" + number + "'s turn");
             }
         }
 

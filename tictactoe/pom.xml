@@ -42,7 +42,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>vgu.pe2026.ttt.console.TicTacToe</mainClass>
+                                    <mainClass>vgu.pe2026.ttt.version.console.TicTacToe</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
@@ -50,29 +50,89 @@
 
                     <!-- Attached artifact: Client JAR -->
                     <execution>
-                        <id>client-jar</id>
+                        <id>singleuser-client-jar</id>
                         <phase>package</phase>
                         <goals><goal>jar</goal></goals>
                         <configuration>
-                            <classifier>client</classifier>
+                            <classifier>singleuser-client</classifier>
                             <archive>
                                 <manifest>
-                                    <mainClass>vgu.pe2026.ttt.singleuser.TicTacToeClient</mainClass>
+                                    <mainClass>vgu.pe2026.ttt.version.singleuser.TicTacToeClient</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
                     </execution>
 
-                    <!-- Attached artifact: Server JAR -->
+                    <!-- Attached artifact: Server JAR (single-user) -->
                     <execution>
-                        <id>server-jar</id>
+                        <id>singleuser-server-jar</id>
                         <phase>package</phase>
                         <goals><goal>jar</goal></goals>
                         <configuration>
-                            <classifier>server</classifier>
+                            <classifier>singleuser-server</classifier>
                             <archive>
                                 <manifest>
-                                    <mainClass>vgu.pe2026.ttt.singleuser.TicTacToeServer</mainClass>
+                                    <mainClass>vgu.pe2026.ttt.version.singleuser.TicTacToeServer</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                    <!-- Attached artifact: Multi-user (no thread pool) Server JAR -->
+                    <execution>
+                        <id>multiuser-server-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>multiuser-server</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.version.multiuser.multithread.TicTacToeServer</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                    <!-- Attached artifact: Multi-user (no thread pool) Client JAR -->
+                    <execution>
+                        <id>multiuser-client-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>multiuser-client</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.version.multiuser.multithread.TicTacToeClient</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                    <!-- Attached artifact: Multi-user thread pool Server JAR -->
+                    <execution>
+                        <id>threadpool-server-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>threadpool-server</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.version.multiuser.multithread.threadpool.TicTacToeServer</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                    <!-- Attached artifact: Multi-user thread pool Client JAR -->
+                    <execution>
+                        <id>threadpool-client-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>threadpool-client</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.version.multiuser.multithread.threadpool.TicTacToeClient</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
