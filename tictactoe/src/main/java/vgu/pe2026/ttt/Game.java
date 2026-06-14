@@ -4,21 +4,20 @@ import java.io.IOException;
 
 import vgu.pe2026.ttt.Board.Board;
 import vgu.pe2026.ttt.IO.GameIO;
-import vgu.pe2026.ttt.Player.ComputerPlayer;
-import vgu.pe2026.ttt.Player.HumanPlayer;
+import vgu.pe2026.ttt.Player.Player;
 
 public class Game {
 
     private final Board board;
-    private final HumanPlayer human;
-    private final ComputerPlayer computer;
+    private final Player player1;
+    private final Player player2;
     private final GameIO io;
 
-    public Game(GameIO io) {
+    public Game(GameIO io, Player player1, Player player2) {
         this.io = io;
         this.board = new Board();
-        this.human = new HumanPlayer(1, io);
-        this.computer = new ComputerPlayer(2);
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     public void play(int startingPlayer) throws IOException {
@@ -36,8 +35,8 @@ public class Game {
             int move;
 
             try {
-                if (currentPlayer == 1) move = human.chooseMove(board);
-                else move = computer.chooseMove(board);
+                Player currentPlayerObj = (currentPlayer == 1) ? player1 : player2;
+                move = currentPlayerObj.chooseMove(board);
             } catch (IOException e) {
                 io.println("End of the game");
                 return;

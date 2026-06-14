@@ -6,6 +6,9 @@ import java.net.Socket;
 
 import vgu.pe2026.ttt.Game;
 import vgu.pe2026.ttt.IO.SocketIO;
+import vgu.pe2026.ttt.Player.ComputerPlayer;
+import vgu.pe2026.ttt.Player.HumanPlayer;
+import vgu.pe2026.ttt.Player.Player;
 
 public class TicTacToeServer {
 
@@ -28,7 +31,9 @@ public class TicTacToeServer {
                 new Thread(() -> {
                     try {
                         SocketIO io = new SocketIO(clientSocket);
-                        new Game(io).play(1);
+                        Player p1 = new HumanPlayer(1, io);
+                        Player p2 = new ComputerPlayer(2);
+                        new Game(io, p1, p2).play(1);
                         System.out.println("Game ended normally");
                     } catch (IOException e) {
                         System.out.println("Game interrupted: " + e.getMessage());
