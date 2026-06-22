@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe vs AI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap');
+
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
+            color: #ffffff; 
+        }
+
+        h1 { 
+            font-size: 3.5rem;
+            margin-bottom: 0px;
+            background: -webkit-linear-gradient(45deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 4px 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .status { 
+            margin-top: 15px; 
+            font-size: 1.5rem; 
+            font-weight: 400; 
+            height: 30px;
+            letter-spacing: 1px;
+            color: #e0e0e0;
+        }
+
+        .board-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .board { 
+            display: grid; 
+            grid-template-columns: repeat(3, 110px); 
+            grid-template-rows: repeat(3, 110px); 
+            gap: 15px; 
+        }
+
+        .cell { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background: rgba(0, 0, 0, 0.4); 
+            border-radius: 16px; 
+            font-size: 4rem; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 4px 6px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cell:hover { 
+            background: rgba(255, 255, 255, 0.1); 
+            transform: translateY(-5px) scale(1.02); 
+            box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+        }
+
+        .cell:active {
+            transform: scale(0.95);
+        }
+
+        .cell.x { 
+            color: #ff2e63; 
+            text-shadow: 0 0 15px rgba(255, 46, 99, 0.5);
+            animation: popIn 0.3s forwards;
+        }
+
+        .cell.o { 
+            color: #08d9d6; 
+            text-shadow: 0 0 15px rgba(8, 217, 214, 0.5);
+            animation: popIn 0.3s forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .reset-btn { 
+            margin-top: 40px; 
+            padding: 12px 30px; 
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem; 
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            color: #fff; 
+            border: none; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
+        }
+
+        .reset-btn:hover { 
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 210, 255, 0.6);
+        }
+
+        .reset-btn:active {
+            transform: translateY(1px);
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Tic-Tac-Toe</h1>
+    <div class="status" id="status">Your turn (X)</div>
+    
+    <div class="board-container">
+        <div class="board" id="board">
+            <div class="cell" onclick="makeMove(0)"></div>
+            <div class="cell" onclick="makeMove(1)"></div>
+            <div class="cell" onclick="makeMove(2)"></div>
+            <div class="cell" onclick="makeMove(3)"></div>
+            <div class="cell" onclick="makeMove(4)"></div>
+            <div class="cell" onclick="makeMove(5)"></div>
+            <div class="cell" onclick="makeMove(6)"></div>
+            <div class="cell" onclick="makeMove(7)"></div>
+            <div class="cell" onclick="makeMove(8)"></div>
+        </div>
+    </div>
+
+    <button class="reset-btn" onclick="resetGame()">Restart Game</button>
+
+    <script>
+        let boardState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let gameOver = false;
+        const statusEl = document.getElementById('status');
+        const cells = document.querySelectorAll('.cell');
+
+        // Hàm cập nhật giao diện
+        function updateUI() {
+            for (let i = 0; i < 9; i++) {
+                if (boardState[i] === 1) {
+                    if(cells[i].innerText !== 'X') {
+                        cells[i].innerText = 'X';
+                        cells[i].className = 'cell x';
+                    }
+                } else if (boardState[i] === 2) {
+                    if(cells[i].innerText !== 'O') {
+                        cells[i].innerText = 'O';
+                        cells[i].className = 'cell o';
+                    }
+                } else {
+                    cells[i].innerText = '';
+                    cells[i].className = 'cell';
+                }
+            }
+        }
+
+        function checkWin(player) {
+            const wins = [
+                [0,1,2], [3,4,5], [6,7,8],
+                [0,3,6], [1,4,7], [2,5,8],
+                [0,4,8], [2,4,6]
+            ];
+            return wins.some(w => boardState[w[0]] === player && boardState[w[1]] === player && boardState[w[2]] === player);
+        }
+
+        function isFull() {
+            return !boardState.includes(0);
+        }
+
+        async function makeMove(index) {
+            if (gameOver || boardState[index] !== 0) return;
+
+            // Nước đi của Người (Player 1 = 1 = X)
+            boardState[index] = 1;
+            updateUI();
+
+            if (checkWin(1)) {
+                statusEl.innerText = "You Win! 🎉";
+                gameOver = true;
+                return;
+            }
+            if (isFull()) {
+                statusEl.innerText = "It's a Draw! 🤝";
+                gameOver = true;
+                return;
+            }
+
+            statusEl.innerText = "Server is thinking... 🧠";
+            
+            // Lượt của Máy (Gửi HTTP GET Request tới Server)
+            // pos là index + 1 (vì Java yêu cầu pos từ 1 đến 9)
+            const pos = index + 1;
+            const boardStr = boardState.join(",");
+            
+            try {
+                // Fetch tới HTTP Server (Cần server bật sẵn ở Port 1817)
+                const response = await fetch(`http://localhost:1817/play?pos=${pos}&board=${boardStr}`);
+                if (!response.ok) throw new Error("Server error");
+                
+                const text = await response.text();
+                
+                // Kết quả trả về dạng: "serverMove|updatedBoard" (vd: "1|2,0,0,0,1,0,0,0,0")
+                const parts = text.split("|");
+                if (parts.length >= 2) {
+                    const serverMove = parseInt(parts[0]);
+                    const newBoard = parts[1].split(",").map(Number);
+                    
+                    if (serverMove !== -1) {
+                        boardState = newBoard;
+                        updateUI();
+                        
+                        // Kiểm tra kết quả sau nước đi của Server
+                        if (checkWin(2)) {
+                            statusEl.innerText = "Server Wins! 💻";
+                            gameOver = true;
+                        } else if (isFull()) {
+                            statusEl.innerText = "It's a Draw! 🤝";
+                            gameOver = true;
+                        } else {
+                            statusEl.innerText = "Your turn (X)";
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+                statusEl.innerText = "⚠️ Error connecting to server (Port 1817)";
+                // Hoàn tác nước đi nếu server sập
+                boardState[index] = 0;
+                updateUI();
+                gameOver = false;
+            }
+        }
+
+        function resetGame() {
+            boardState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            gameOver = false;
+            statusEl.innerText = "Your turn (X)";
+            updateUI();
+        }
+    </script>
+</body>
+</html>

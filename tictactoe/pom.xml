@@ -138,6 +138,96 @@
                         </configuration>
                     </execution>
 
+                    <!-- Attached artifact: Stateless Server JAR -->
+                    <execution>
+                        <id>stateless-server-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>stateless-server</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.version.stateless.TicTacToeServer</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                    <!-- Attached artifact: Stateless Client JAR -->
+                    <execution>
+                        <id>stateless-client-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>stateless-client</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.version.stateless.TicTacToeClient</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                    <!-- Attached artifact: Stateless More Secure Server JAR -->
+                    <execution>
+                        <id>moresecure-server-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>moresecure-server</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.version.stateless.moresecure.TicTacToeServer</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                    <!-- Attached artifact: Stateless More Secure Client JAR -->
+                    <execution>
+                        <id>moresecure-client-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>moresecure-client</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.version.stateless.moresecure.TicTacToeClient</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                    <!-- Attached artifact: HTTP Stateless Server JAR -->
+                    <execution>
+                        <id>http-server-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>http-server</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.version.stateless.http.TicTacToeServer</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
+                    <!-- Attached artifact: HTTP Stateless Client JAR -->
+                    <execution>
+                        <id>http-client-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                        <configuration>
+                            <classifier>http-client</classifier>
+                            <archive>
+                                <manifest>
+                                    <mainClass>vgu.pe2026.ttt.version.stateless.http.TicTacToeClient</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+
                 </executions>
             </plugin>
 

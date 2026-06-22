@@ -4,6 +4,16 @@ public class Board {
 
     private final int[] cells = new int[9];
 
+    public int[] getCells() {
+        return cells.clone();
+    }
+
+    public void setCells(int[] newCells) {
+        if (newCells.length == 9) {
+            System.arraycopy(newCells, 0, cells, 0, 9);
+        }
+    }
+
     public boolean isFree(int cell) {
         return cells[cell - 1] == 0;
     }
@@ -52,9 +62,20 @@ public class Board {
 
     @Override
     public String toString() {
-        return "| " + cells[0] + " | " + cells[1] + " | " + cells[2] + " |\n"
-             + "| " + cells[3] + " | " + cells[4] + " | " + cells[5] + " |\n"
-             + "| " + cells[6] + " | " + cells[7] + " | " + cells[8] + " |";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 9; i++) {
+            if (i % 3 == 0) sb.append("| ");
+            
+            sb.append(cells[i]);
+            
+            if (i % 3 == 2) {
+                sb.append(" |");
+                if (i < 8) sb.append("\n");
+            } else {
+                sb.append(" | ");
+            }
+        }
+        return sb.toString();
     }
 
     public void display() {
